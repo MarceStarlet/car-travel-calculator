@@ -1,13 +1,14 @@
 package org.marcestarlet.cartravelcalculator.api.model;
 
-import java.util.Comparator;
-
+/**
+ * Representation of a Node in a Graph
+ * @param <V> The Vertex
+ * @param <E> The Edge
+ */
 public class Node<V extends Comparable<V>,E extends Comparable<E>> implements Comparable<Node>{
 
-    protected V vertex; // key name
-    protected E edge;   // costs to this vertex
-
-    public Node(){}
+    private V vertex; // key name
+    private E edge;   // costs to this vertex
 
     public Node(V vertex, E edge){
         this.vertex = vertex;
@@ -33,12 +34,15 @@ public class Node<V extends Comparable<V>,E extends Comparable<E>> implements Co
     @Override
     public int compareTo(Node o) {
         return this.edge.compareTo((E) o.getEdge());
-
     }
 
 
     @Override
     public boolean equals(Object n) {
+
+        if (!(n instanceof Node))
+            return false;
+
         Node<V,E> node = (Node)n;
         return (this.vertex.compareTo(node.vertex) == 0 && this.edge.compareTo(node.edge) == 0);
     }

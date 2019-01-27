@@ -5,6 +5,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * A graph representation as an Adjacency List of nodes, of the locations in a city to calculate car travels.
+ * Implements a {@code ConcurrentHashMap} to handle de adjacency list by mapping Key nodes to its adjacent node list {@code List<Node<V,E>>}.
+ * V vertex, E edge, should be comparable.
+ * @param <K> The key node
+ * @param <V> The Vertex of the adjacent node
+ * @param <E> The Edge of the adjacent node
+ */
 public class Graph<K,V extends Comparable<V>,E extends Comparable<E>> {
 
     protected Map<K,List<Node>> graph = new ConcurrentHashMap<>();
