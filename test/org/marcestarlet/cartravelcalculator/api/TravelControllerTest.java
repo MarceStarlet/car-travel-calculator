@@ -10,13 +10,13 @@ import static org.junit.Assert.*;
 
 public class TravelControllerTest {
 
-    private static final int THREAD_POOL_SIZE = 1000;
+    private static final int THREAD_POOL_SIZE = 100;
 
     @Test
     public void requestTravel() {
 
-        TravelController travelCtrll = new TravelController(Arrays.asList("P","Q","S"));
-        assertEquals("S",travelCtrll.requestTravel("A"));
+        TravelController travelCtrl = new TravelController(Arrays.asList("P","Q","S"));
+        assertEquals("S",travelCtrl.requestTravel("A"));
     }
 
     @Test
