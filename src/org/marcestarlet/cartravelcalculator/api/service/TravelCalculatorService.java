@@ -156,6 +156,7 @@ public class TravelCalculatorService extends AbstractTravelService {
         // prepare structures for calculation
         Queue<Node<String,Integer>> dijkQueue = new PriorityQueue<>(dijkGraph.size());
         initializeCosts(key, costs, dijkGraph);
+        Map<String, Boolean> visited = new HashMap<>(dijkGraph.size());
 
         Integer lowestCost;
         Integer newCost;
@@ -170,21 +171,24 @@ public class TravelCalculatorService extends AbstractTravelService {
             String vertex = lowCostNode.getVertex();
             lowestCost = lowCostNode.getEdge();
 
-            // iterate over all directed nodes (neighbours) if exists
-            List<Node> nodes = dijkGraph.get().get(vertex);
-            if (null != nodes) {
-                for (Node<String, Integer> node : nodes) {
-                    // get node Vertex
-                    String nodeVertex = node.getVertex();
-                    // if current vertex is in costs calculate new cost
-                    if (costs.containsKey(nodeVertex)) {
-                        newCost = lowestCost + node.getEdge();
+            if (!visited.getOrDefault(vertex, false)) { // calculate if not visited
+                visited.put(vertex,true);
+                // iterate over all directed nodes (neighbours) if exists
+                List<Node> nodes = dijkGraph.get().get(vertex);
+                if (null != nodes) {
+                    for (Node<String, Integer> node : nodes) {
+                        // get node Vertex
+                        String nodeVertex = node.getVertex();
+                        // if current vertex is in costs calculate new cost
+                        if (costs.containsKey(nodeVertex)) {
+                            newCost = lowestCost + node.getEdge();
 
-                        if (newCost < costs.get(nodeVertex)) {
-                            costs.put(nodeVertex, newCost);
+                            if (newCost < costs.get(nodeVertex)) {
+                                costs.put(nodeVertex, newCost);
+                            }
+                            // add newCost calculated
+                            dijkQueue.add(new Node<>(nodeVertex, newCost));
                         }
-                        // add newCost calculated
-                        dijkQueue.add(new Node<>(nodeVertex, newCost));
                     }
                 }
             }
